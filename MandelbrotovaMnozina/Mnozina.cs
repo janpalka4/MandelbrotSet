@@ -44,7 +44,7 @@ namespace MandelbrotovaMnozina
         public static Bitmap VykresliMnozinu(Rectangle region,Pohled pohled)
         {
             Bitmap bmp = new Bitmap(region.Width, region.Height);
-            float velikostPixelu =  Math.Abs(pohled.p1.X - pohled.p2.X)/800f;
+            float velikostPixelu =  Math.Abs(pohled.p1.X - pohled.p2.X)/(float)region.Width;
 
             for (int x = 0; x < bmp.Width; x++)
             {
