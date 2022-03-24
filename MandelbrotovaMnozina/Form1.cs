@@ -147,5 +147,11 @@ namespace MandelbrotovaMnozina
         private void krokZpětToolStripMenuItem_Click(object sender, EventArgs e) => zpet();
 
         private void krokVpředToolStripMenuItem_Click(object sender, EventArgs e) => vpred();
+
+        private void oAplikaciToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OAplikaciForm form = new OAplikaciForm();
+            form.Show();
+        }
     }
 }

@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        h1{font-family: Arial;}
+        p{font-family: Arial; font-size: 14px;}
+        dt{font-family: Arial;}
+        dd{font-family: Arial; font-style: italic;}
+    </style>
+</head>
+<header>
+    <h2>O aplikaci</h2>
+    <hr/>
+</header>
+<body>
+    <p>Aplikace je určena k vizualizaci Mandelbrotovy množiny.</p>
+    <p>Metody vykteslování:</p>
+    <dl>
+        <dt>CPU</dt>
+        <dd>Vykreslovaní algoritmem přes procesor.
+        Tento způsop je poměrně pomalý, ale počíta s 64 bitovými čísly, takže dokáže vykreslit i ty nejmenší detaily.</dd>
+        <dt>GPU</dt>
+        <dd>Vykreslování shaderem přes grafickou kartu.
+        Tímto způsobem můžeme krásy množiny zkoumat v realném čase, ale počítáme pouze s 32 bitovými čísly, takže brzy narazíme na limitace.</dd>
+    </dl>
+</body>
+</html>

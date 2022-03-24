@@ -51,6 +51,7 @@ namespace MandelbrotovaMnozina
             this.upravitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.krokZpětToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.krokVpředToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oAplikaciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
@@ -215,7 +216,8 @@ namespace MandelbrotovaMnozina
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.souborToolStripMenuItem,
-            this.upravitToolStripMenuItem});
+            this.upravitToolStripMenuItem,
+            this.oAplikaciToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1007, 24);
@@ -259,6 +261,13 @@ namespace MandelbrotovaMnozina
             this.krokVpředToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.krokVpředToolStripMenuItem.Text = "Krok vpřed";
             this.krokVpředToolStripMenuItem.Click += new System.EventHandler(this.krokVpředToolStripMenuItem_Click);
+            // 
+            // oAplikaciToolStripMenuItem
+            // 
+            this.oAplikaciToolStripMenuItem.Name = "oAplikaciToolStripMenuItem";
+            this.oAplikaciToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.oAplikaciToolStripMenuItem.Text = "O aplikaci";
+            this.oAplikaciToolStripMenuItem.Click += new System.EventHandler(this.oAplikaciToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -314,6 +323,7 @@ namespace MandelbrotovaMnozina
         private System.Windows.Forms.ToolStripMenuItem krokZpětToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem krokVpředToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uložitTentoPohledJakoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem oAplikaciToolStripMenuItem;
     }
 }
 
