@@ -13,6 +13,7 @@ namespace MandelbrotovaMnozina
 {
     public partial class RenderForm : Form
     {
+        VykreslovaciMod vykreslovaciMod = VykreslovaciMod.CPU;
         public RenderForm()
         {
             InitializeComponent();
@@ -33,9 +34,18 @@ namespace MandelbrotovaMnozina
         {
             try
             {
-                Text = "Pracuji...";
-                Bitmap bmp = Mnozina.VykresliMnozinu(new Rectangle(0, 0, (int)NumericResX.Value, (int)NumericResY.Value),PohledovyManazer.AktualniPohled);
-                bmp.Save(PathTextBox.Text);
+                if (vykreslovaciMod == VykreslovaciMod.CPU)
+                {
+                    Text = "Pracuji...";
+                    Bitmap bmp = Mnozina.VykresliMnozinu(new Rectangle(0, 0, (int)NumericResX.Value, (int)NumericResY.Value), PohledovyManazer.AktualniPohled);
+                    bmp.Save(PathTextBox.Text);
+                }
+                else
+                {
+                    Text = "Pracuji...";
+                    Bitmap bmp = GlobalniPromene.context.Render((int)NumericResX.Value, (int)NumericResY.Value, PohledovyManazer.AktualniPohled);
+                    bmp.Save(PathTextBox.Text);
+                }
                 Close();
             }catch(ArgumentNullException ex)
             {
@@ -48,5 +58,7 @@ namespace MandelbrotovaMnozina
         {
             Close();
         }
+
+        private void MethodSelect_SelectedIndexChanged(object sender, EventArgs e) => vykreslovaciMod = (VykreslovaciMod)MethodSelect.SelectedIndex;
     }
 }

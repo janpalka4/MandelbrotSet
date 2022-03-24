@@ -31,9 +31,9 @@ namespace MandelbrotovaMnozina
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RenderForm));
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
             this.NumericResX = new System.Windows.Forms.NumericUpDown();
             this.NumericResY = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.PathTextBox = new System.Windows.Forms.TextBox();
@@ -57,6 +57,15 @@ namespace MandelbrotovaMnozina
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(360, 72);
             this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(54, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Rozlišení:";
             // 
             // NumericResX
             // 
@@ -102,15 +111,6 @@ namespace MandelbrotovaMnozina
             0,
             0});
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Rozlišení:";
-            // 
             // flowLayoutPanel2
             // 
             this.flowLayoutPanel2.Controls.Add(this.label2);
@@ -151,11 +151,13 @@ namespace MandelbrotovaMnozina
             // 
             this.MethodSelect.FormattingEnabled = true;
             this.MethodSelect.Items.AddRange(new object[] {
-            "CPU"});
+            "CPU",
+            "GPU"});
             this.MethodSelect.Location = new System.Drawing.Point(12, 29);
             this.MethodSelect.Name = "MethodSelect";
             this.MethodSelect.Size = new System.Drawing.Size(90, 17);
             this.MethodSelect.TabIndex = 3;
+            this.MethodSelect.SelectedIndexChanged += new System.EventHandler(this.MethodSelect_SelectedIndexChanged);
             // 
             // label3
             // 

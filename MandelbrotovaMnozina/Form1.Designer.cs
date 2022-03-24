@@ -52,6 +52,9 @@ namespace MandelbrotovaMnozina
             this.krokZpětToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.krokVpředToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oAplikaciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.glControl1 = new OpenTK.GLControl();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
@@ -149,7 +152,7 @@ namespace MandelbrotovaMnozina
             this.flowLayoutPanel4.Controls.Add(this.NumericUpDownY);
             this.flowLayoutPanel4.Controls.Add(this.NumericUpDownR);
             this.flowLayoutPanel4.Controls.Add(this.button2);
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(805, 149);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(805, 336);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
             this.flowLayoutPanel4.Size = new System.Drawing.Size(200, 83);
             this.flowLayoutPanel4.TabIndex = 8;
@@ -206,7 +209,7 @@ namespace MandelbrotovaMnozina
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(805, 133);
+            this.label2.Location = new System.Drawing.Point(805, 320);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 13);
             this.label2.TabIndex = 9;
@@ -251,14 +254,14 @@ namespace MandelbrotovaMnozina
             // krokZpětToolStripMenuItem
             // 
             this.krokZpětToolStripMenuItem.Name = "krokZpětToolStripMenuItem";
-            this.krokZpětToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.krokZpětToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.krokZpětToolStripMenuItem.Text = "Krok zpět";
             this.krokZpětToolStripMenuItem.Click += new System.EventHandler(this.krokZpětToolStripMenuItem_Click);
             // 
             // krokVpředToolStripMenuItem
             // 
             this.krokVpředToolStripMenuItem.Name = "krokVpředToolStripMenuItem";
-            this.krokVpředToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.krokVpředToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
             this.krokVpředToolStripMenuItem.Text = "Krok vpřed";
             this.krokVpředToolStripMenuItem.Click += new System.EventHandler(this.krokVpředToolStripMenuItem_Click);
             // 
@@ -269,11 +272,44 @@ namespace MandelbrotovaMnozina
             this.oAplikaciToolStripMenuItem.Text = "O aplikaci";
             this.oAplikaciToolStripMenuItem.Click += new System.EventHandler(this.oAplikaciToolStripMenuItem_Click);
             // 
+            // glControl1
+            // 
+            this.glControl1.BackColor = System.Drawing.Color.Black;
+            this.glControl1.Location = new System.Drawing.Point(-1, 34);
+            this.glControl1.Name = "glControl1";
+            this.glControl1.Size = new System.Drawing.Size(800, 798);
+            this.glControl1.TabIndex = 11;
+            this.glControl1.VSync = false;
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Items.AddRange(new object[] {
+            "CPU",
+            "GPU"});
+            this.listBox1.Location = new System.Drawing.Point(809, 79);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(127, 17);
+            this.listBox1.TabIndex = 12;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(806, 63);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(46, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Metoda:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1007, 858);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.glControl1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.flowLayoutPanel4);
             this.Controls.Add(this.label1);
@@ -324,6 +360,9 @@ namespace MandelbrotovaMnozina
         private System.Windows.Forms.ToolStripMenuItem krokVpředToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uložitTentoPohledJakoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem oAplikaciToolStripMenuItem;
+        private OpenTK.GLControl glControl1;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label label3;
     }
 }
 

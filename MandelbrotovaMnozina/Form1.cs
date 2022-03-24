@@ -19,6 +19,9 @@ namespace MandelbrotovaMnozina
         Point end = new Point(800,800);
         Rectangle vyber = new Rectangle(0,0,800,800);
         string NazevAplikace;
+
+        VykreslovaciMod vykreslovaciMod = VykreslovaciMod.CPU;
+        ShaderContext context;
         public Form1()
         {
             InitializeComponent();
@@ -38,6 +41,9 @@ namespace MandelbrotovaMnozina
                 Panel Cprev = new Panel() { Width = flowLayoutPanel3.Width, Height = 10, BackColor = c };
                 flowLayoutPanel3.Controls.Add(Cprev);
             }
+            glControl1.SendToBack();
+            context = new ShaderContext(glControl1);
+            GlobalniPromene.context = context;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -57,8 +63,16 @@ namespace MandelbrotovaMnozina
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             Text = "Pracuji...";
-            bitmap = Mnozina.VykresliMnozinu(new Rectangle(0,0,800,800),PohledovyManazer.AktualniPohled);
-            pictureBox1.Image = bitmap;
+            if (vykreslovaciMod == VykreslovaciMod.CPU)
+            {
+                bitmap = Mnozina.VykresliMnozinu(new Rectangle(0, 0, 800, 800), PohledovyManazer.AktualniPohled);
+                pictureBox1.Image = bitmap;
+            }
+            else
+            {
+                bitmap = context.Render(800,800,PohledovyManazer.AktualniPohled);
+                pictureBox1.Image = bitmap;
+            }
             stopwatch.Stop();
             StatusTextBox.Text = $"Status: Doba vykreslení {stopwatch.ElapsedMilliseconds / 1000f}s";
             AktualizujUI();
@@ -153,5 +167,7 @@ namespace MandelbrotovaMnozina
             OAplikaciForm form = new OAplikaciForm();
             form.Show();
         }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e) => vykreslovaciMod = (VykreslovaciMod)listBox1.SelectedIndex;
     }
 }
