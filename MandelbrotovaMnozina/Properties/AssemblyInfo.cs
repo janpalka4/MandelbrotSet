@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("MandelbrotovaMnozina")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("VDA Česká Třebová")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("MandelbrotovaMnozina")]
-[assembly: AssemblyCopyright("Copyright © VDA Česká Třebová 2022")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
