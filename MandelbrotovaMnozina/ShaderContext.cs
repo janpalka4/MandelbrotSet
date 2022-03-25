@@ -12,7 +12,7 @@ using OpenTK;
 
 namespace MandelbrotovaMnozina
 {
-    public class ShaderContext
+    public class ShaderContext : IDisposable
     {
         float[] screen = { -1, -1, 1, -1, 1, 1, -1, 1 };
 
@@ -80,16 +80,17 @@ namespace MandelbrotovaMnozina
         {          
             GL.Clear(ClearBufferMask.ColorBufferBit);
             GL.UseProgram(shader);
-            int s = GL.GetUniformLocation(shader, "region");
-
-            GL.Uniform4(s, pohled.p1.X, pohled.p1.Y, pohled.p2.X, pohled.p2.Y);
+            int reg = GL.GetUniformLocation(shader, "region");
+            int res = GL.GetUniformLocation(shader, "resolution");
+            GL.Uniform4(reg, pohled.p1.X, pohled.p1.Y, pohled.p2.X, pohled.p2.Y);
+            GL.Uniform1(res, (float)bmp.Width);
 
             GL.BindVertexArray(vao);           
             
             GL.DrawArrays(PrimitiveType.TriangleFan, 0, screen.Length/2);
             byte[] pixels = new byte[bmp.Width * bmp.Height * 4];
             GL.ReadPixels(0, 0, bmp.Width, bmp.Height, OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, pixels);
-            BitmapData bitmapData = bmp.LockBits(new Rectangle(0, 0, 800, 800), ImageLockMode.WriteOnly, bmp.PixelFormat);
+            BitmapData bitmapData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, bmp.PixelFormat);
             Marshal.Copy(pixels, 0, bitmapData.Scan0, pixels.Length);
             bmp.UnlockBits(bitmapData);
             control.SwapBuffers();         
@@ -106,6 +107,14 @@ namespace MandelbrotovaMnozina
             control.Height = 800;
             GL.Viewport(0, 0, 800, 800);
             return bmp;
+        }
+        public void Dispose()
+        {
+            GL.DeleteBuffer(vbo);
+            GL.DeleteProgram(shader);
+            GL.DeleteShader(frag);
+            GL.DeleteShader(vert);
+            GL.DeleteVertexArray(vao);
         }
     }
 }

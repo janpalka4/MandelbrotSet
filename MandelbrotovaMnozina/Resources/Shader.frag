@@ -1,9 +1,9 @@
 ﻿#version 330 core
-#define Imax 1000.0
 
 in vec2 uv;
 
 uniform vec4 region;
+uniform float resolution;
 
 vec3 lerp(vec3 a, vec3 b, float t){
     return a + t*(b-a);
@@ -38,6 +38,8 @@ void main(){
     float cy = 0.0;
     float Zn = 0.0;
     float i = 0.0;
+    float scale = resolution / (R*2.0);
+    float Imax = float(int(sqrt(2.0 * sqrt(abs(1.0 - sqrt(5.0 * scale)))) * 16.5));
     do{
         float pomX = cx*cx - cy*cy + coord.x;
         float pomY = 2*cx*cy + coord.y;

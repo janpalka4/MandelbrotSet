@@ -14,6 +14,8 @@ namespace MandelbrotovaMnozina
     public partial class RenderForm : Form
     {
         VykreslovaciMod vykreslovaciMod = VykreslovaciMod.CPU;
+        ShaderContext context;
+        OpenTK.GLControl gLControl;
         public RenderForm()
         {
             InitializeComponent();
@@ -42,9 +44,11 @@ namespace MandelbrotovaMnozina
                 }
                 else
                 {
+                    gLControl.Show();
                     Text = "Pracuji...";
-                    Bitmap bmp = GlobalniPromene.context.Render((int)NumericResX.Value, (int)NumericResY.Value, PohledovyManazer.AktualniPohled);
+                    Bitmap bmp = context.Render((int)NumericResX.Value, (int)NumericResY.Value, PohledovyManazer.AktualniPohled);
                     bmp.Save(PathTextBox.Text);
+                    gLControl.Hide();
                 }
                 Close();
             }catch(ArgumentNullException ex)
@@ -59,6 +63,19 @@ namespace MandelbrotovaMnozina
             Close();
         }
 
-        private void MethodSelect_SelectedIndexChanged(object sender, EventArgs e) => vykreslovaciMod = (VykreslovaciMod)MethodSelect.SelectedIndex;
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) => vykreslovaciMod = (VykreslovaciMod)comboBox1.SelectedIndex;
+
+        private void RenderForm_Load(object sender, EventArgs e)
+        {
+            gLControl = new OpenTK.GLControl();
+            Controls.Add(gLControl);
+            gLControl.Hide();
+            context = new ShaderContext(gLControl);
+        }
+
+        private void OnFormClosed(object sender, FormClosedEventArgs e)
+        {
+            context.Dispose();
+        }
     }
 }

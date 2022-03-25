@@ -38,10 +38,10 @@ namespace MandelbrotovaMnozina
             this.label2 = new System.Windows.Forms.Label();
             this.PathTextBox = new System.Windows.Forms.TextBox();
             this.SearchTextBox = new System.Windows.Forms.Button();
-            this.MethodSelect = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.SaveButton = new System.Windows.Forms.Button();
             this.StornoButton = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericResX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericResY)).BeginInit();
@@ -147,18 +147,6 @@ namespace MandelbrotovaMnozina
             this.SearchTextBox.UseVisualStyleBackColor = true;
             this.SearchTextBox.Click += new System.EventHandler(this.SearchTextBox_Click);
             // 
-            // MethodSelect
-            // 
-            this.MethodSelect.FormattingEnabled = true;
-            this.MethodSelect.Items.AddRange(new object[] {
-            "CPU",
-            "GPU"});
-            this.MethodSelect.Location = new System.Drawing.Point(12, 29);
-            this.MethodSelect.Name = "MethodSelect";
-            this.MethodSelect.Size = new System.Drawing.Size(90, 17);
-            this.MethodSelect.TabIndex = 3;
-            this.MethodSelect.SelectedIndexChanged += new System.EventHandler(this.MethodSelect_SelectedIndexChanged);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -188,20 +176,35 @@ namespace MandelbrotovaMnozina
             this.StornoButton.UseVisualStyleBackColor = true;
             this.StornoButton.Click += new System.EventHandler(this.StornoButton_Click);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "CPU",
+            "GPU"});
+            this.comboBox1.Location = new System.Drawing.Point(15, 27);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 7;
+            this.comboBox1.Text = "Metoda vykreslení";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // RenderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 221);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.StornoButton);
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.MethodSelect);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RenderForm";
             this.Text = "Vyrenderovat";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnFormClosed);
+            this.Load += new System.EventHandler(this.RenderForm_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericResX)).EndInit();
@@ -223,9 +226,9 @@ namespace MandelbrotovaMnozina
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox PathTextBox;
         private System.Windows.Forms.Button SearchTextBox;
-        private System.Windows.Forms.ListBox MethodSelect;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button StornoButton;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
