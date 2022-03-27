@@ -19,21 +19,53 @@ namespace MandelbrotovaMnozina
 
         public event EventHandler<Pohled> FramePassed;
 
+        bool drag = false;
+
         Pohled PosledniPohled = PohledovyManazer.Vychozi;
 
         Timer previewTimer;
 
+        Bitmap bmp;
+
         public TimeLineControl()
         {
-            Paint += TimeLineControl_Paint;
+            bmp = new Bitmap(Width, Height);
+
             MouseDown += TimeLineControl_MouseDown;
+            MouseMove += TimeLineControl_MouseMove;
+            MouseUp += TimeLineControl_MouseUp;
+            Resize += TimeLineControl_Resize;
 
             previewTimer = new Timer() { Interval = 16 };
             previewTimer.Tick += PreviewTimer_Tick;
 
             keyframes.Add(new Keyframe() { t = 0, value = PohledovyManazer.Vychozi });
             end = 10f / Zoom;
+
+            OnLoad();
         }
+
+        private void TimeLineControl_MouseUp(object sender, MouseEventArgs e)
+        {
+            drag = false;
+        }
+
+        private void TimeLineControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (drag) AktualizujPoziciKurzoru(e.Location);
+        }
+
+        private async void OnLoad()
+        {
+            await Task.Delay(100);
+            Prekreslit();
+        }
+        private void TimeLineControl_Resize(object sender, EventArgs e)
+        {
+            bmp = new Bitmap(Width, Height);
+            Prekreslit();
+        }
+
         public void Play()
         {
 
@@ -62,7 +94,7 @@ namespace MandelbrotovaMnozina
             if (FramePassed != null) FramePassed.Invoke(this,pohled);
             if (Position >= end) previewTimer.Stop();
             PosledniPohled = pohled;
-            Refresh();
+            Prekreslit();
         }
 
         public void PridatKlic(Keyframe keyframe)
@@ -80,25 +112,34 @@ namespace MandelbrotovaMnozina
 
         private void TimeLineControl_MouseDown(object sender, MouseEventArgs e)
         {
-            Position = start + (e.Location.X / (float)Width)*Math.Abs(start-end);
-            Refresh();
+            drag = true;
+            AktualizujPoziciKurzoru(e.Location);
+        }
+        private void AktualizujPoziciKurzoru(Point Location)
+        {
+            Position = (float)Math.Round(start + (Location.X / (float)Width) * Math.Abs(start - end));
+            Prekreslit();
         }
 
-        private void TimeLineControl_Paint(object sender, PaintEventArgs e)
+        private void Prekreslit()
         {
+            
+            Graphics g = Graphics.FromImage(bmp);
+            g.Clear(Color.White);
             float T = 10f / Zoom;
             float mezera = Width / T;
-            for(int i = (int)Math.Min(0,Position-T/2f); i < T; i++)
+            for (int i = (int)Math.Min(0, Position - T / 2f); i < T; i++)
             {
-                e.Graphics.DrawString(i.ToString(), new Font(FontFamily.GenericMonospace,Width/T/2), Brushes.Black, new PointF(i * mezera, 0));
+                g.DrawString(i.ToString(), new Font(FontFamily.GenericMonospace, Width / T / 2), Brushes.Black, new PointF(i * mezera, 0));
             }
-            foreach(Keyframe keyframe in keyframes)
+            foreach (Keyframe keyframe in keyframes)
             {
-                e.Graphics.FillEllipse(Brushes.Blue, TimeToCood(keyframe.t)- 6, 12, 12, 12);
-                e.Graphics.DrawLine(Pens.Blue, TimeToCood(keyframe.t), 0, TimeToCood(keyframe.t), Height);
+                g.FillEllipse(Brushes.Blue, TimeToCood(keyframe.t) - 6, 12, 12, 12);
+                g.DrawLine(Pens.Blue, TimeToCood(keyframe.t), 0, TimeToCood(keyframe.t), Height);
             }
-            e.Graphics.DrawLine(Pens.Black, 0, 18, Width, 18);
-            e.Graphics.DrawLine(Pens.Red,TimeToCood(Position), 0, TimeToCood(Position), Height);
+            g.DrawLine(Pens.Black, 0, 18, Width, 18);
+            g.DrawLine(Pens.Red, TimeToCood(Position), 0, TimeToCood(Position), Height);
+            CreateGraphics().DrawImage(bmp,new Point(0,0));
         }
         private float TimeToCood(float t) => (t - start) * Width / Math.Abs(start - end);
 

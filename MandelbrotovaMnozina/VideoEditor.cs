@@ -39,6 +39,7 @@ namespace MandelbrotovaMnozina
         private void PlotBox_VybranNovyPohled(object sender, Pohled e)
         {
             timeLineControl1.PridatKlic(new Keyframe() { value = e, t = timeLineControl1.Position });
+            AktualizujListKlicu();
         }
 
         private async void VideoEditor_Load(object sender, EventArgs e)
@@ -59,5 +60,20 @@ namespace MandelbrotovaMnozina
         {
             if (e.KeyCode == Keys.Space) timeLineControl1.Play();
         }
+
+        private void kliceTab_Focus(object sender, EventArgs e) => AktualizujListKlicu();
+
+        private void AktualizujListKlicu()
+        {
+            listView2.Items.Clear();
+            listView2.View = View.Details;
+            foreach (Keyframe keyframe in timeLineControl1.keyframes.OrderBy(x => x.t))
+            {
+                ListViewItem item = new ListViewItem(new[] { $"{keyframe.t}", "Klíč" });
+                listView2.Items.Add(item);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e) => timeLineControl1.Play();
     }
 }
