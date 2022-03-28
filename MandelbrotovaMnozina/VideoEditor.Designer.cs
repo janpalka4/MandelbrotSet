@@ -35,15 +35,28 @@ namespace MandelbrotovaMnozina
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.kliceTab = new System.Windows.Forms.TabPage();
-            this.klicTab = new System.Windows.Forms.TabPage();
             this.listView2 = new System.Windows.Forms.ListView();
             this.casColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.popisColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.timeLineControl1 = new MandelbrotovaMnozina.TimeLineControl();
+            this.klicTab = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
+            this.timeLineControl1 = new MandelbrotovaMnozina.TimeLineControl();
+            this.videoTab = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numericStart = new System.Windows.Forms.NumericUpDown();
+            this.numericEnd = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.kliceTab.SuspendLayout();
+            this.videoTab.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericStart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericEnd)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -81,6 +94,7 @@ namespace MandelbrotovaMnozina
             // 
             // tabControl1
             // 
+            this.tabControl1.Controls.Add(this.videoTab);
             this.tabControl1.Controls.Add(this.kliceTab);
             this.tabControl1.Controls.Add(this.klicTab);
             this.tabControl1.Location = new System.Drawing.Point(407, 27);
@@ -100,16 +114,6 @@ namespace MandelbrotovaMnozina
             this.kliceTab.Text = "Klíče";
             this.kliceTab.UseVisualStyleBackColor = true;
             this.kliceTab.Enter += new System.EventHandler(this.kliceTab_Focus);
-            // 
-            // klicTab
-            // 
-            this.klicTab.Location = new System.Drawing.Point(4, 22);
-            this.klicTab.Name = "klicTab";
-            this.klicTab.Padding = new System.Windows.Forms.Padding(3);
-            this.klicTab.Size = new System.Drawing.Size(604, 334);
-            this.klicTab.TabIndex = 1;
-            this.klicTab.Text = "Klíč";
-            this.klicTab.UseVisualStyleBackColor = true;
             // 
             // listView2
             // 
@@ -133,12 +137,15 @@ namespace MandelbrotovaMnozina
             this.popisColumn.Text = "Popis";
             this.popisColumn.Width = 250;
             // 
-            // timeLineControl1
+            // klicTab
             // 
-            this.timeLineControl1.Location = new System.Drawing.Point(0, 433);
-            this.timeLineControl1.Name = "timeLineControl1";
-            this.timeLineControl1.Size = new System.Drawing.Size(1019, 171);
-            this.timeLineControl1.TabIndex = 2;
+            this.klicTab.Location = new System.Drawing.Point(4, 22);
+            this.klicTab.Name = "klicTab";
+            this.klicTab.Padding = new System.Windows.Forms.Padding(3);
+            this.klicTab.Size = new System.Drawing.Size(604, 334);
+            this.klicTab.TabIndex = 1;
+            this.klicTab.Text = "Klíč";
+            this.klicTab.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -149,6 +156,108 @@ namespace MandelbrotovaMnozina
             this.button1.Text = "Přehrát";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // timeLineControl1
+            // 
+            this.timeLineControl1.Location = new System.Drawing.Point(0, 433);
+            this.timeLineControl1.Name = "timeLineControl1";
+            this.timeLineControl1.Size = new System.Drawing.Size(1019, 171);
+            this.timeLineControl1.TabIndex = 2;
+            // 
+            // videoTab
+            // 
+            this.videoTab.Controls.Add(this.flowLayoutPanel1);
+            this.videoTab.Location = new System.Drawing.Point(4, 22);
+            this.videoTab.Name = "videoTab";
+            this.videoTab.Size = new System.Drawing.Size(604, 334);
+            this.videoTab.TabIndex = 2;
+            this.videoTab.Text = "Video";
+            this.videoTab.UseVisualStyleBackColor = true;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.panel2);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(604, 334);
+            this.flowLayoutPanel1.TabIndex = 2;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.numericEnd);
+            this.panel2.Controls.Add(this.numericStart);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(601, 80);
+            this.panel2.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(96, 20);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Trvání videa:";
+            // 
+            // numericStart
+            // 
+            this.numericStart.Location = new System.Drawing.Point(59, 27);
+            this.numericStart.Maximum = new decimal(new int[] {
+            172799,
+            0,
+            0,
+            0});
+            this.numericStart.Name = "numericStart";
+            this.numericStart.Size = new System.Drawing.Size(120, 20);
+            this.numericStart.TabIndex = 1;
+            this.numericStart.ValueChanged += new System.EventHandler(this.numericStart_ValueChanged);
+            // 
+            // numericEnd
+            // 
+            this.numericEnd.Location = new System.Drawing.Point(59, 53);
+            this.numericEnd.Maximum = new decimal(new int[] {
+            172800,
+            0,
+            0,
+            0});
+            this.numericEnd.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericEnd.Name = "numericEnd";
+            this.numericEnd.Size = new System.Drawing.Size(120, 20);
+            this.numericEnd.TabIndex = 2;
+            this.numericEnd.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericEnd.ValueChanged += new System.EventHandler(this.numericEnd_ValueChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 29);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(32, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Start:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(15, 55);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Konec:";
             // 
             // VideoEditor
             // 
@@ -171,6 +280,12 @@ namespace MandelbrotovaMnozina
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.kliceTab.ResumeLayout(false);
+            this.videoTab.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericStart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericEnd)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,5 +305,13 @@ namespace MandelbrotovaMnozina
         private System.Windows.Forms.ColumnHeader casColumn;
         private System.Windows.Forms.ColumnHeader popisColumn;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabPage videoTab;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown numericEnd;
+        private System.Windows.Forms.NumericUpDown numericStart;
+        private System.Windows.Forms.Label label2;
     }
 }

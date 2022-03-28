@@ -11,15 +11,18 @@ namespace MandelbrotovaMnozina
     public class TimeLineControl : Panel
     {
         public float Position = 0f;
-        public float start = 0f;
-        public float end = 10f;
+        public float Start = 0f;
+        public float End = 10f;
         public float Zoom = 0.16f;
-
         public List<Keyframe> keyframes = new List<Keyframe>();
-
         public event EventHandler<Pohled> FramePassed;
 
+        private HScrollBar scrollBar;
+        private float vstart = 0f;
+        private float vend = 10f;
         bool drag = false;
+
+        
 
         Pohled PosledniPohled = PohledovyManazer.Vychozi;
 
@@ -40,9 +43,20 @@ namespace MandelbrotovaMnozina
             previewTimer.Tick += PreviewTimer_Tick;
 
             keyframes.Add(new Keyframe() { t = 0, value = PohledovyManazer.Vychozi });
-            end = 10f / Zoom;
+            vend = 10f / Zoom;
+
+            scrollBar = new HScrollBar() {Dock = DockStyle.Bottom, Minimum=0, Maximum=100};
+            scrollBar.ValueChanged += ScrollBar_ValueChanged;
+            Controls.Add(scrollBar);
 
             OnLoad();
+        }
+
+        private void ScrollBar_ValueChanged(object sender, EventArgs e)
+        {
+            vstart = (scrollBar.Value / (float)scrollBar.Maximum) * (10f / Zoom);
+            vend = vstart + 10f / Zoom;
+            Prekreslit();
         }
 
         private void TimeLineControl_MouseUp(object sender, MouseEventArgs e)
@@ -72,7 +86,7 @@ namespace MandelbrotovaMnozina
             if (!previewTimer.Enabled)
             {
                 previewTimer.Start();
-                Position = 0;
+                Position = Start;
             }
             else
                 previewTimer.Stop();
@@ -90,9 +104,9 @@ namespace MandelbrotovaMnozina
             float t = (Position - st.t) / R;
             pohled.p1 = Util.LerpP(st.value.p1, en.value.p1, t);
             pohled.p2 = Util.LerpP(st.value.p2, en.value.p2, t);
-            Position += 16f / 1000f;
+            Position += 16f / 1000f * 1.5f;
             if (FramePassed != null) FramePassed.Invoke(this,pohled);
-            if (Position >= end) previewTimer.Stop();
+            if (Position >= End) previewTimer.Stop();
             PosledniPohled = pohled;
             Prekreslit();
         }
@@ -117,7 +131,7 @@ namespace MandelbrotovaMnozina
         }
         private void AktualizujPoziciKurzoru(Point Location)
         {
-            Position = (float)Math.Round(start + (Location.X / (float)Width) * Math.Abs(start - end));
+            Position = (float)Math.Round(vstart + (Location.X / (float)Width) * Math.Abs(vstart - vend));
             Prekreslit();
         }
 
@@ -126,11 +140,18 @@ namespace MandelbrotovaMnozina
             
             Graphics g = Graphics.FromImage(bmp);
             g.Clear(Color.White);
-            float T = 10f / Zoom;
-            float mezera = Width / T;
-            for (int i = (int)Math.Min(0, Position - T / 2f); i < T; i++)
+            float mezera = Width / (vend-vstart);
+            int pos = 0;
+            for (int i = (int)vstart; i < vend; i++)
             {
-                g.DrawString(i.ToString(), new Font(FontFamily.GenericMonospace, Width / T / 2), Brushes.Black, new PointF(i * mezera, 0));
+                if (i % 10 == 0)
+                {
+                    g.DrawString(i.ToString(), new Font(FontFamily.GenericMonospace, Width / (vend - vstart) / 2), Brushes.Black, new PointF(pos * mezera, 0));
+                }else if(i % 5 == 0)
+                {
+                    g.DrawLine(Pens.Gray, pos * mezera, 5, pos * mezera, 18);
+                }else g.DrawLine(Pens.Gray, pos * mezera, 14, pos * mezera, 18);
+                pos++;
             }
             foreach (Keyframe keyframe in keyframes)
             {
@@ -141,7 +162,7 @@ namespace MandelbrotovaMnozina
             g.DrawLine(Pens.Red, TimeToCood(Position), 0, TimeToCood(Position), Height);
             CreateGraphics().DrawImage(bmp,new Point(0,0));
         }
-        private float TimeToCood(float t) => (t - start) * Width / Math.Abs(start - end);
+        private float TimeToCood(float t) => (t - vstart) * Width / Math.Abs(vstart - vend);
 
     }
 }
