@@ -13,15 +13,14 @@ namespace MandelbrotovaMnozina
 {
     public partial class Form1 : Form
     {
-        Bitmap bitmap = null;
-        bool drag = false;
-        Point start = new Point(0,0);
-        Point end = new Point(800,800);
-        Rectangle vyber = new Rectangle(0,0,800,800);
-        Pohled Pohled = new Pohled(new PointF(-2, -2), new PointF(2, 2));
+        string NazevAplikace;
+        PlotBox plotBox;
+
+        VykreslovaciMod vykreslovaciMod = VykreslovaciMod.CPU;
         public Form1()
         {
             InitializeComponent();
+            NazevAplikace = Text;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -31,12 +30,15 @@ namespace MandelbrotovaMnozina
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            PohledovyManazer.PridatPohled(Pohled);
+            PohledovyManazer.PridatPohled(PohledovyManazer.AktualniPohled);
+            plotBox = new PlotBox() { Width = 800, Height = 800, vykreslovaciMod = VykreslovaciMod.GPU };
+            panel1.Controls.Add(plotBox);
             foreach(Color c in Mnozina.Paleta)
             {
                 Panel Cprev = new Panel() { Width = flowLayoutPanel3.Width, Height = 10, BackColor = c };
                 flowLayoutPanel3.Controls.Add(Cprev);
             }
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -44,93 +46,77 @@ namespace MandelbrotovaMnozina
             Vykresli();
         }
 
-        private void CanvasMouseDown(object sender, MouseEventArgs e)
-        {
-            if (!drag)
-                start = e.Location;
-            drag = true;
-            
-        }
+
         public void Vykresli()
         {
-            StatusTextBox.Text = "Status: Pracuji...";
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            bitmap = Mnozina.VykresliMnozinu(new Rectangle(0,0,800,800),Pohled);
-            pictureBox1.Image = bitmap;
+            Text = "Pracuji...";
+            plotBox.Render();
             stopwatch.Stop();
-            AktualizujUI(stopwatch.ElapsedMilliseconds / 1000f);
+            StatusTextBox.Text = $"Status: Doba vykreslení {stopwatch.ElapsedMilliseconds / 1000f}s";
+            AktualizujUI();
         }
-        public void DokonciVyber()
+        private void VypocitejPocetIteraci(float sirka = 800f)
         {
-            float Xs = vyber.Left / 800f;
-            float Ys = vyber.Top / 800f;
-            float Xs1 = vyber.Right / 800f;
-            float Ys1 = vyber.Bottom / 800f;
-            float R = Pohled.p2.X - Pohled.p1.X;
-            PointF p1 = PointF.Empty;
-            PointF p2 = PointF.Empty;
-            p1.X = Pohled.p1.X + (Xs * R);
-            p1.Y = Pohled.p1.Y + (Ys * R);
-            p2.X = Pohled.p1.X + (Xs1 * R);
-            p2.Y = Pohled.p1.Y + (Ys1 * R);
-            Pohled = new Pohled(p1, p2);
-            PohledovyManazer.PridatPohled(Pohled);
-
-            AktualizujMaxIteraci();
-        }
-        private void AktualizujMaxIteraci()
-        {
-            double scale = 800.0 / (Pohled.p2.X - Pohled.p1.X);
+            double scale = sirka / (PohledovyManazer.AktualniPohled.p2.X - PohledovyManazer.AktualniPohled.p1.X);
             Mnozina.MaxIteraci = (int)(Math.Sqrt(2 * Math.Sqrt(Math.Abs(1 - Math.Sqrt(5 * scale)))) * 16.5);
         }
-        private void CanvasMouseMove(object sender, MouseEventArgs e)
+        public void AktualizujUI()
         {
-            if (drag && bitmap != null)
-            {
-                end = e.Location;
-                Graphics g = pictureBox1.CreateGraphics();
-                g.DrawImage(bitmap, 0, 0);
-                vyber = new Rectangle(Math.Min(start.X, end.X), Math.Min(start.Y, end.Y), Math.Abs(start.X - end.X), Math.Abs(start.X - end.X));
-                g.DrawRectangle(Pens.Red, vyber);
-            }
-            
-        }
-        public void AktualizujUI(float t = 0)
-        {
-            txtPohledX.Text = $"X: {Pohled.p1.X}   -   {Pohled.p2.X}";
-            txtPohledY.Text = $"Y: {Pohled.p1.Y}   -   {Pohled.p2.Y}";
+            txtPohledX.Text = $"X: {PohledovyManazer.AktualniPohled.p1.X}   -   {PohledovyManazer.AktualniPohled.p2.X}";
+            txtPohledY.Text = $"Y: {PohledovyManazer.AktualniPohled.p1.Y}   -   {PohledovyManazer.AktualniPohled.p2.Y}";
             txtIteraci.Text = $"Iterací: {Mnozina.MaxIteraci}";
-            StatusTextBox.Text = $"Status: Připraven, Poslední doba vykreslování: {t}s";
+            Text = NazevAplikace;
         }
-        private void CanvasMouseUp(object sender, MouseEventArgs e)
+
+
+        private void zpet()
         {
-            drag = false;
-            DokonciVyber();
+            PohledovyManazer.PredchoziPohled();
+            Vykresli();
+        }
+        private void vpred()
+        {
+            PohledovyManazer.NadchazejiciPohled();
             Vykresli();
         }
 
-        private void zpetButton_Click(object sender, EventArgs e)
-        {
-            Pohled = PohledovyManazer.PredchoziPohled();
-            Vykresli();
-        }
-
-        private void vpredButton_Click(object sender, EventArgs e)
-        {
-            Pohled = PohledovyManazer.NadchazejiciPohled();
-            Vykresli();
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            float R = (float)NumericUpDownR.Value;
             Pohled pohled = new Pohled();
+            float R = (float)NumericUpDownR.Value;
             pohled.p1 = new PointF((float)NumericUpDownX.Value - 1f * R, (float)NumericUpDownY.Value - 1f * R);
             pohled.p2 = new PointF((float)NumericUpDownX.Value + 1f * R, (float)NumericUpDownY.Value + 1f * R);
-            Pohled = pohled;
-            AktualizujMaxIteraci();
+            PohledovyManazer.PridatPohled(pohled);
+            VypocitejPocetIteraci();
             Vykresli();
         }
+
+        private void uložitTentoPohledJakoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RenderForm renderForm = new RenderForm();
+            renderForm.Show();
+        }
+
+        private void krokZpětToolStripMenuItem_Click(object sender, EventArgs e) => zpet();
+
+        private void krokVpředToolStripMenuItem_Click(object sender, EventArgs e) => vpred();
+
+        private void oAplikaciToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OAplikaciForm form = new OAplikaciForm();
+            form.Show();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) => vykreslovaciMod = (VykreslovaciMod)comboBox1.SelectedIndex;
+
+        private void OnClosed(object sender, FormClosedEventArgs e)
+        {
+
+        }
+
+        private void editorVideaToolStripMenuItem_Click(object sender, EventArgs e) => new VideoEditor().Show();
     }
 }

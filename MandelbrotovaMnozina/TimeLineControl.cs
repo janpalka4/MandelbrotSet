@@ -95,20 +95,26 @@ namespace MandelbrotovaMnozina
 
         private void PreviewTimer_Tick(object sender, EventArgs e)
         {
-            Pohled pohled = new Pohled();
-            Keyframe[] pred = keyframes.Where(x => x.t <= Position).ToArray();
-            Keyframe[] po = keyframes.Where(x => x.t >= Position).ToArray();
-            Keyframe st = pred.Length > 0 ? pred.Where(x => x.t == pred.Select(y => y.t).Max()).First() : new Keyframe() { value = PosledniPohled, t = Position };
-            Keyframe en = po.Length > 0 ? po.Where(x => x.t == po.Select(y => y.t).Min()).First() : new Keyframe() { value = PosledniPohled, t = Position };
-            float R = en.t - st.t;
-            float t = (Position - st.t) / R;
-            pohled.p1 = Util.LerpP(st.value.p1, en.value.p1, t);
-            pohled.p2 = Util.LerpP(st.value.p2, en.value.p2, t);
+            Pohled pohled = PreskocNaPohled(Position);
             Position += 16f / 1000f * 1.5f;
             if (FramePassed != null) FramePassed.Invoke(this,pohled);
             if (Position >= End) previewTimer.Stop();
-            PosledniPohled = pohled;
             Prekreslit();
+        }
+
+        private Pohled PreskocNaPohled(float p)
+        {
+            Pohled pohled = new Pohled();
+            Keyframe[] pred = keyframes.Where(x => x.t <= p).ToArray();
+            Keyframe[] po = keyframes.Where(x => x.t >= p).ToArray();
+            Keyframe st = pred.Length > 0 ? pred.Where(x => x.t == pred.Select(y => y.t).Max()).First() : new Keyframe() { value = PosledniPohled, t = p };
+            Keyframe en = po.Length > 0 ? po.Where(x => x.t == po.Select(y => y.t).Min()).First() : new Keyframe() { value = PosledniPohled, t = p };
+            float R = en.t - st.t;
+            float t = (p - st.t) / R;
+            pohled.p1 = Util.LerpP(st.value.p1, en.value.p1, t);
+            pohled.p2 = Util.LerpP(st.value.p2, en.value.p2, t);
+            PosledniPohled = pohled;
+            return pohled;
         }
 
         public void PridatKlic(Keyframe keyframe)
@@ -127,11 +133,12 @@ namespace MandelbrotovaMnozina
         private void TimeLineControl_MouseDown(object sender, MouseEventArgs e)
         {
             drag = true;
-            AktualizujPoziciKurzoru(e.Location);
+            AktualizujPoziciKurzoru(e.Location); 
         }
         private void AktualizujPoziciKurzoru(Point Location)
         {
             Position = (float)Math.Round(vstart + (Location.X / (float)Width) * Math.Abs(vstart - vend));
+            if (FramePassed != null) FramePassed.Invoke(this, PreskocNaPohled(Position));
             Prekreslit();
         }
 

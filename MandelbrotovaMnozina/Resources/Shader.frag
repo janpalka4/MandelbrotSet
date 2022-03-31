@@ -54,7 +54,7 @@ void main(){
     vec3 col = vec3(0.0);
     if(i < Imax){
         float logZn = log(Zn) / 2.0;
-        float nu = log(logZn/log(2.0))/log(2);
+        float nu = log(logZn/log(2.0))/log(2.0);
         i = i + 1 - nu;
         t = fract(i);
     

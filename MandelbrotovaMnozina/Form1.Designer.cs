@@ -29,31 +29,39 @@ namespace MandelbrotovaMnozina
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.zpetButton = new System.Windows.Forms.Button();
-            this.vpredButton = new System.Windows.Forms.Button();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.txtPohledX = new System.Windows.Forms.TextBox();
             this.txtPohledY = new System.Windows.Forms.TextBox();
             this.txtIteraci = new System.Windows.Forms.TextBox();
+            this.StatusTextBox = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.NumericUpDownX = new System.Windows.Forms.NumericUpDown();
             this.NumericUpDownY = new System.Windows.Forms.NumericUpDown();
             this.NumericUpDownR = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.StatusTextBox = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.label2 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.souborToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uložitTentoPohledJakoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.upravitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.krokZpětToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.krokVpředToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zobrazitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editorVideaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oAplikaciToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownR)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -65,47 +73,6 @@ namespace MandelbrotovaMnozina
             this.button1.Text = "Vykreslit";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(-1, 34);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(800, 800);
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CanvasMouseDown);
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.CanvasMouseMove);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.CanvasMouseUp);
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.zpetButton);
-            this.flowLayoutPanel1.Controls.Add(this.vpredButton);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1007, 32);
-            this.flowLayoutPanel1.TabIndex = 4;
-            // 
-            // zpetButton
-            // 
-            this.zpetButton.Location = new System.Drawing.Point(3, 3);
-            this.zpetButton.Name = "zpetButton";
-            this.zpetButton.Size = new System.Drawing.Size(75, 23);
-            this.zpetButton.TabIndex = 0;
-            this.zpetButton.Text = "<-";
-            this.zpetButton.UseVisualStyleBackColor = true;
-            this.zpetButton.Click += new System.EventHandler(this.zpetButton_Click);
-            // 
-            // vpredButton
-            // 
-            this.vpredButton.Location = new System.Drawing.Point(84, 3);
-            this.vpredButton.Name = "vpredButton";
-            this.vpredButton.Size = new System.Drawing.Size(75, 23);
-            this.vpredButton.TabIndex = 1;
-            this.vpredButton.Text = "->";
-            this.vpredButton.UseVisualStyleBackColor = true;
-            this.vpredButton.Click += new System.EventHandler(this.vpredButton_Click);
             // 
             // flowLayoutPanel2
             // 
@@ -143,6 +110,15 @@ namespace MandelbrotovaMnozina
             this.txtIteraci.Size = new System.Drawing.Size(100, 20);
             this.txtIteraci.TabIndex = 2;
             // 
+            // StatusTextBox
+            // 
+            this.StatusTextBox.Location = new System.Drawing.Point(521, 3);
+            this.StatusTextBox.Name = "StatusTextBox";
+            this.StatusTextBox.ReadOnly = true;
+            this.StatusTextBox.Size = new System.Drawing.Size(278, 20);
+            this.StatusTextBox.TabIndex = 3;
+            this.StatusTextBox.Text = "Status: Připraven!";
+            // 
             // flowLayoutPanel3
             // 
             this.flowLayoutPanel3.Location = new System.Drawing.Point(805, 441);
@@ -165,19 +141,14 @@ namespace MandelbrotovaMnozina
             this.flowLayoutPanel4.Controls.Add(this.NumericUpDownY);
             this.flowLayoutPanel4.Controls.Add(this.NumericUpDownR);
             this.flowLayoutPanel4.Controls.Add(this.button2);
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(805, 149);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(805, 336);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
             this.flowLayoutPanel4.Size = new System.Drawing.Size(200, 83);
             this.flowLayoutPanel4.TabIndex = 8;
             // 
             // NumericUpDownX
             // 
-            this.NumericUpDownX.DecimalPlaces = 10;
-            this.NumericUpDownX.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+            this.NumericUpDownX.DecimalPlaces = 5;
             this.NumericUpDownX.Location = new System.Drawing.Point(3, 3);
             this.NumericUpDownX.Minimum = new decimal(new int[] {
             100,
@@ -190,12 +161,7 @@ namespace MandelbrotovaMnozina
             // 
             // NumericUpDownY
             // 
-            this.NumericUpDownY.DecimalPlaces = 10;
-            this.NumericUpDownY.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+            this.NumericUpDownY.DecimalPlaces = 5;
             this.NumericUpDownY.Location = new System.Drawing.Point(101, 3);
             this.NumericUpDownY.Minimum = new decimal(new int[] {
             100,
@@ -208,25 +174,16 @@ namespace MandelbrotovaMnozina
             // 
             // NumericUpDownR
             // 
-            this.NumericUpDownR.DecimalPlaces = 10;
+            this.NumericUpDownR.DecimalPlaces = 5;
             this.NumericUpDownR.Location = new System.Drawing.Point(3, 29);
+            this.NumericUpDownR.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.NumericUpDownR.Name = "NumericUpDownR";
             this.NumericUpDownR.Size = new System.Drawing.Size(190, 20);
             this.NumericUpDownR.TabIndex = 2;
-            this.NumericUpDownR.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(805, 133);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Manualni navigace";
             // 
             // button2
             // 
@@ -238,39 +195,146 @@ namespace MandelbrotovaMnozina
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // StatusTextBox
+            // label2
             // 
-            this.StatusTextBox.Location = new System.Drawing.Point(521, 3);
-            this.StatusTextBox.Name = "StatusTextBox";
-            this.StatusTextBox.ReadOnly = true;
-            this.StatusTextBox.Size = new System.Drawing.Size(278, 20);
-            this.StatusTextBox.TabIndex = 3;
-            this.StatusTextBox.Text = "Status: Připraven";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(805, 320);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(97, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Manualni navigace";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.souborToolStripMenuItem,
+            this.upravitToolStripMenuItem,
+            this.zobrazitToolStripMenuItem,
+            this.oAplikaciToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1007, 24);
+            this.menuStrip1.TabIndex = 10;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // souborToolStripMenuItem
+            // 
+            this.souborToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.uložitTentoPohledJakoToolStripMenuItem});
+            this.souborToolStripMenuItem.Name = "souborToolStripMenuItem";
+            this.souborToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.souborToolStripMenuItem.Text = "Soubor";
+            // 
+            // uložitTentoPohledJakoToolStripMenuItem
+            // 
+            this.uložitTentoPohledJakoToolStripMenuItem.Name = "uložitTentoPohledJakoToolStripMenuItem";
+            this.uložitTentoPohledJakoToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.uložitTentoPohledJakoToolStripMenuItem.Text = "Uložit tento pohled jako";
+            this.uložitTentoPohledJakoToolStripMenuItem.Click += new System.EventHandler(this.uložitTentoPohledJakoToolStripMenuItem_Click);
+            // 
+            // upravitToolStripMenuItem
+            // 
+            this.upravitToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.krokZpětToolStripMenuItem,
+            this.krokVpředToolStripMenuItem});
+            this.upravitToolStripMenuItem.Name = "upravitToolStripMenuItem";
+            this.upravitToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.upravitToolStripMenuItem.Text = "Upravit";
+            // 
+            // krokZpětToolStripMenuItem
+            // 
+            this.krokZpětToolStripMenuItem.Name = "krokZpětToolStripMenuItem";
+            this.krokZpětToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.krokZpětToolStripMenuItem.Text = "Krok zpět";
+            this.krokZpětToolStripMenuItem.Click += new System.EventHandler(this.krokZpětToolStripMenuItem_Click);
+            // 
+            // krokVpředToolStripMenuItem
+            // 
+            this.krokVpředToolStripMenuItem.Name = "krokVpředToolStripMenuItem";
+            this.krokVpředToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+            this.krokVpředToolStripMenuItem.Text = "Krok vpřed";
+            this.krokVpředToolStripMenuItem.Click += new System.EventHandler(this.krokVpředToolStripMenuItem_Click);
+            // 
+            // zobrazitToolStripMenuItem
+            // 
+            this.zobrazitToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editorVideaToolStripMenuItem});
+            this.zobrazitToolStripMenuItem.Name = "zobrazitToolStripMenuItem";
+            this.zobrazitToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.zobrazitToolStripMenuItem.Text = "Zobrazit";
+            // 
+            // editorVideaToolStripMenuItem
+            // 
+            this.editorVideaToolStripMenuItem.Name = "editorVideaToolStripMenuItem";
+            this.editorVideaToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.editorVideaToolStripMenuItem.Text = "Editor videa";
+            this.editorVideaToolStripMenuItem.Click += new System.EventHandler(this.editorVideaToolStripMenuItem_Click);
+            // 
+            // oAplikaciToolStripMenuItem
+            // 
+            this.oAplikaciToolStripMenuItem.Name = "oAplikaciToolStripMenuItem";
+            this.oAplikaciToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.oAplikaciToolStripMenuItem.Text = "O aplikaci";
+            this.oAplikaciToolStripMenuItem.Click += new System.EventHandler(this.oAplikaciToolStripMenuItem_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(806, 63);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(46, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "Metoda:";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "CPU",
+            "GPU"});
+            this.comboBox1.Location = new System.Drawing.Point(809, 79);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 14;
+            this.comboBox1.Text = "Metoda vykreslení";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Location = new System.Drawing.Point(3, 27);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(800, 800);
+            this.panel1.TabIndex = 15;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1007, 858);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.flowLayoutPanel4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.flowLayoutPanel3);
             this.Controls.Add(this.flowLayoutPanel2);
-            this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Mandelbrotova mnozina";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
             this.flowLayoutPanel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownR)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -278,10 +342,6 @@ namespace MandelbrotovaMnozina
 
         #endregion
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button zpetButton;
-        private System.Windows.Forms.Button vpredButton;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.TextBox txtPohledX;
         private System.Windows.Forms.TextBox txtPohledY;
@@ -295,6 +355,18 @@ namespace MandelbrotovaMnozina
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox StatusTextBox;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem souborToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem upravitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem krokZpětToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem krokVpředToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem uložitTentoPohledJakoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem oAplikaciToolStripMenuItem;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ToolStripMenuItem zobrazitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editorVideaToolStripMenuItem;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 
