@@ -32,7 +32,8 @@ namespace MandelbrotovaMnozina
         {
             PohledovyManazer.AktualniPohled = e;
             plotBox.Render();
-            time = time.AddMilliseconds(16*1.5f);
+            time = new DateTime(1, 1, 1, 1, 0, 0);
+            time = time.AddSeconds(timeLineControl1.Position);
             label1.Text = $"{time.Minute}:{time.Second}";
         }
 

@@ -106,7 +106,8 @@ namespace MandelbrotovaMnozina
         {
             Pohled pohled = new Pohled();
             Keyframe[] pred = keyframes.Where(x => x.t <= p).ToArray();
-            Keyframe[] po = keyframes.Where(x => x.t >= p).ToArray();
+            Keyframe[] po = keyframes.Where(x => x.t > p).ToArray();
+            if (po.Length == 0 || pred.Length == 0) return PosledniPohled;
             Keyframe st = pred.Length > 0 ? pred.Where(x => x.t == pred.Select(y => y.t).Max()).First() : new Keyframe() { value = PosledniPohled, t = p };
             Keyframe en = po.Length > 0 ? po.Where(x => x.t == po.Select(y => y.t).Min()).First() : new Keyframe() { value = PosledniPohled, t = p };
             float R = en.t - st.t;
