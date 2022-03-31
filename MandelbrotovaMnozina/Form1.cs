@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,9 +53,13 @@ namespace MandelbrotovaMnozina
         }
         public void Vykresli()
         {
+            StatusTextBox.Text = "Status: Pracuji...";
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             bitmap = Mnozina.VykresliMnozinu(new Rectangle(0,0,800,800),Pohled);
             pictureBox1.Image = bitmap;
-            AktualizujUI();
+            stopwatch.Stop();
+            AktualizujUI(stopwatch.ElapsedMilliseconds / 1000f);
         }
         public void DokonciVyber()
         {
@@ -72,8 +77,12 @@ namespace MandelbrotovaMnozina
             Pohled = new Pohled(p1, p2);
             PohledovyManazer.PridatPohled(Pohled);
 
-            double scale = 800.0/(Pohled.p2.X - Pohled.p1.X);
-            Mnozina.MaxIteraci = (int)(Math.Sqrt(2*Math.Sqrt(Math.Abs(1-Math.Sqrt(5*scale))))*16.5);
+            AktualizujMaxIteraci();
+        }
+        private void AktualizujMaxIteraci()
+        {
+            double scale = 800.0 / (Pohled.p2.X - Pohled.p1.X);
+            Mnozina.MaxIteraci = (int)(Math.Sqrt(2 * Math.Sqrt(Math.Abs(1 - Math.Sqrt(5 * scale)))) * 16.5);
         }
         private void CanvasMouseMove(object sender, MouseEventArgs e)
         {
@@ -87,11 +96,12 @@ namespace MandelbrotovaMnozina
             }
             
         }
-        public void AktualizujUI()
+        public void AktualizujUI(float t = 0)
         {
             txtPohledX.Text = $"X: {Pohled.p1.X}   -   {Pohled.p2.X}";
             txtPohledY.Text = $"Y: {Pohled.p1.Y}   -   {Pohled.p2.Y}";
             txtIteraci.Text = $"Iterací: {Mnozina.MaxIteraci}";
+            StatusTextBox.Text = $"Status: Připraven, Poslední doba vykreslování: {t}s";
         }
         private void CanvasMouseUp(object sender, MouseEventArgs e)
         {
@@ -114,8 +124,13 @@ namespace MandelbrotovaMnozina
 
         private void button2_Click(object sender, EventArgs e)
         {
+            float R = (float)NumericUpDownR.Value;
             Pohled pohled = new Pohled();
-            pohled.p1 = new PointF(NumericUpDownX.Value-1f,NumericUpDownY.Value-1f)
+            pohled.p1 = new PointF((float)NumericUpDownX.Value - 1f * R, (float)NumericUpDownY.Value - 1f * R);
+            pohled.p2 = new PointF((float)NumericUpDownX.Value + 1f * R, (float)NumericUpDownY.Value + 1f * R);
+            Pohled = pohled;
+            AktualizujMaxIteraci();
+            Vykresli();
         }
     }
 }

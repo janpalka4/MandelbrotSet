@@ -46,6 +46,7 @@ namespace MandelbrotovaMnozina
             this.NumericUpDownR = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
+            this.StatusTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
@@ -111,6 +112,7 @@ namespace MandelbrotovaMnozina
             this.flowLayoutPanel2.Controls.Add(this.txtPohledX);
             this.flowLayoutPanel2.Controls.Add(this.txtPohledY);
             this.flowLayoutPanel2.Controls.Add(this.txtIteraci);
+            this.flowLayoutPanel2.Controls.Add(this.StatusTextBox);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 835);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
@@ -170,24 +172,52 @@ namespace MandelbrotovaMnozina
             // 
             // NumericUpDownX
             // 
+            this.NumericUpDownX.DecimalPlaces = 10;
+            this.NumericUpDownX.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.NumericUpDownX.Location = new System.Drawing.Point(3, 3);
+            this.NumericUpDownX.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.NumericUpDownX.Name = "NumericUpDownX";
             this.NumericUpDownX.Size = new System.Drawing.Size(92, 20);
             this.NumericUpDownX.TabIndex = 0;
             // 
             // NumericUpDownY
             // 
+            this.NumericUpDownY.DecimalPlaces = 10;
+            this.NumericUpDownY.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             this.NumericUpDownY.Location = new System.Drawing.Point(101, 3);
+            this.NumericUpDownY.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
             this.NumericUpDownY.Name = "NumericUpDownY";
             this.NumericUpDownY.Size = new System.Drawing.Size(92, 20);
             this.NumericUpDownY.TabIndex = 1;
             // 
             // NumericUpDownR
             // 
+            this.NumericUpDownR.DecimalPlaces = 10;
             this.NumericUpDownR.Location = new System.Drawing.Point(3, 29);
             this.NumericUpDownR.Name = "NumericUpDownR";
             this.NumericUpDownR.Size = new System.Drawing.Size(190, 20);
             this.NumericUpDownR.TabIndex = 2;
+            this.NumericUpDownR.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             // 
             // label2
             // 
@@ -207,6 +237,15 @@ namespace MandelbrotovaMnozina
             this.button2.Text = "Potvrdit";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // StatusTextBox
+            // 
+            this.StatusTextBox.Location = new System.Drawing.Point(521, 3);
+            this.StatusTextBox.Name = "StatusTextBox";
+            this.StatusTextBox.ReadOnly = true;
+            this.StatusTextBox.Size = new System.Drawing.Size(278, 20);
+            this.StatusTextBox.TabIndex = 3;
+            this.StatusTextBox.Text = "Status: Připraven";
             // 
             // Form1
             // 
@@ -255,6 +294,7 @@ namespace MandelbrotovaMnozina
         private System.Windows.Forms.NumericUpDown NumericUpDownR;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox StatusTextBox;
     }
 }
 
