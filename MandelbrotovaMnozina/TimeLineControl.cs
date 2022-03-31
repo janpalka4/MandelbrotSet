@@ -86,7 +86,6 @@ namespace MandelbrotovaMnozina
             if (!previewTimer.Enabled)
             {
                 previewTimer.Start();
-                Position = Start;
             }
             else
                 previewTimer.Stop();

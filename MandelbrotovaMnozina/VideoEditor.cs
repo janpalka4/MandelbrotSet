@@ -78,7 +78,6 @@ namespace MandelbrotovaMnozina
         private void button1_Click(object sender, EventArgs e)
         {
             timeLineControl1.Play();
-            time = new DateTime();
         }
 
         private void numericStart_ValueChanged(object sender, EventArgs e) => timeLineControl1.Start = (float)numericStart.Value;
