@@ -110,7 +110,11 @@ namespace MandelbrotovaMnozina
             form.Show();
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) => vykreslovaciMod = (VykreslovaciMod)comboBox1.SelectedIndex;
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            plotBox.vykreslovaciMod = (VykreslovaciMod)comboBox1.SelectedIndex;
+            vykreslovaciMod = plotBox.vykreslovaciMod;
+        }
 
         private void OnClosed(object sender, FormClosedEventArgs e)
         {
