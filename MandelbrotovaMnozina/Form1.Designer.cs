@@ -38,7 +38,6 @@ namespace MandelbrotovaMnozina
             this.StatusTextBox = new System.Windows.Forms.TextBox();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.NumericUpDownX = new System.Windows.Forms.NumericUpDown();
             this.NumericUpDownY = new System.Windows.Forms.NumericUpDown();
             this.NumericUpDownR = new System.Windows.Forms.NumericUpDown();
@@ -56,17 +55,18 @@ namespace MandelbrotovaMnozina
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel2.SuspendLayout();
-            this.flowLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownR)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(805, 34);
+            this.button1.Location = new System.Drawing.Point(6, 46);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
@@ -121,7 +121,7 @@ namespace MandelbrotovaMnozina
             // 
             // flowLayoutPanel3
             // 
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(805, 441);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 423);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(200, 388);
             this.flowLayoutPanel3.TabIndex = 6;
@@ -129,27 +129,16 @@ namespace MandelbrotovaMnozina
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(806, 422);
+            this.label1.Location = new System.Drawing.Point(2, 407);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 13);
             this.label1.TabIndex = 7;
             this.label1.Text = "Paleta barev:";
             // 
-            // flowLayoutPanel4
-            // 
-            this.flowLayoutPanel4.Controls.Add(this.NumericUpDownX);
-            this.flowLayoutPanel4.Controls.Add(this.NumericUpDownY);
-            this.flowLayoutPanel4.Controls.Add(this.NumericUpDownR);
-            this.flowLayoutPanel4.Controls.Add(this.button2);
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(805, 336);
-            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(200, 83);
-            this.flowLayoutPanel4.TabIndex = 8;
-            // 
             // NumericUpDownX
             // 
             this.NumericUpDownX.DecimalPlaces = 5;
-            this.NumericUpDownX.Location = new System.Drawing.Point(3, 3);
+            this.NumericUpDownX.Location = new System.Drawing.Point(5, 314);
             this.NumericUpDownX.Minimum = new decimal(new int[] {
             100,
             0,
@@ -162,7 +151,7 @@ namespace MandelbrotovaMnozina
             // NumericUpDownY
             // 
             this.NumericUpDownY.DecimalPlaces = 5;
-            this.NumericUpDownY.Location = new System.Drawing.Point(101, 3);
+            this.NumericUpDownY.Location = new System.Drawing.Point(104, 314);
             this.NumericUpDownY.Minimum = new decimal(new int[] {
             100,
             0,
@@ -175,7 +164,7 @@ namespace MandelbrotovaMnozina
             // NumericUpDownR
             // 
             this.NumericUpDownR.DecimalPlaces = 5;
-            this.NumericUpDownR.Location = new System.Drawing.Point(3, 29);
+            this.NumericUpDownR.Location = new System.Drawing.Point(6, 340);
             this.NumericUpDownR.Minimum = new decimal(new int[] {
             100,
             0,
@@ -187,7 +176,7 @@ namespace MandelbrotovaMnozina
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(3, 55);
+            this.button2.Location = new System.Drawing.Point(6, 366);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(190, 23);
             this.button2.TabIndex = 3;
@@ -198,7 +187,7 @@ namespace MandelbrotovaMnozina
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(805, 320);
+            this.label2.Location = new System.Drawing.Point(3, 298);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 13);
             this.label2.TabIndex = 9;
@@ -280,11 +269,12 @@ namespace MandelbrotovaMnozina
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(806, 63);
+            this.label3.Location = new System.Drawing.Point(3, 3);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(46, 13);
             this.label3.TabIndex = 13;
             this.label3.Text = "Metoda:";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // comboBox1
             // 
@@ -292,7 +282,7 @@ namespace MandelbrotovaMnozina
             this.comboBox1.Items.AddRange(new object[] {
             "CPU",
             "GPU"});
-            this.comboBox1.Location = new System.Drawing.Point(809, 79);
+            this.comboBox1.Location = new System.Drawing.Point(6, 19);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 14;
@@ -301,25 +291,38 @@ namespace MandelbrotovaMnozina
             // 
             // panel1
             // 
-            this.panel1.Location = new System.Drawing.Point(3, 27);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 800);
+            this.panel1.Size = new System.Drawing.Size(1007, 811);
             this.panel1.TabIndex = 15;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.NumericUpDownR);
+            this.panel2.Controls.Add(this.flowLayoutPanel3);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.NumericUpDownY);
+            this.panel2.Controls.Add(this.NumericUpDownX);
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.comboBox1);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel2.Location = new System.Drawing.Point(807, 24);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(200, 811);
+            this.panel2.TabIndex = 16;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1007, 858);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.flowLayoutPanel4);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.flowLayoutPanel3);
             this.Controls.Add(this.flowLayoutPanel2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -329,12 +332,13 @@ namespace MandelbrotovaMnozina
             this.Load += new System.EventHandler(this.Form1_Load);
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
-            this.flowLayoutPanel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NumericUpDownR)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -348,7 +352,6 @@ namespace MandelbrotovaMnozina
         private System.Windows.Forms.TextBox txtIteraci;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
         private System.Windows.Forms.NumericUpDown NumericUpDownX;
         private System.Windows.Forms.NumericUpDown NumericUpDownY;
         private System.Windows.Forms.NumericUpDown NumericUpDownR;
@@ -367,6 +370,7 @@ namespace MandelbrotovaMnozina
         private System.Windows.Forms.ToolStripMenuItem zobrazitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editorVideaToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 

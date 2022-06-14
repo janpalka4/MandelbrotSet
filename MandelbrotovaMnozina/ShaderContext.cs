@@ -55,12 +55,12 @@ namespace MandelbrotovaMnozina
             GL.ShaderSource(vert,vertex);
             GL.CompileShader(vert);
             string errors = GL.GetShaderInfoLog(vert);
-            if (errors != "") ;
+            if (errors != "") throw new Exception(errors);
             frag = GL.CreateShader(ShaderType.FragmentShader);
             GL.ShaderSource(frag, fragment);
             GL.CompileShader(frag);
             errors = GL.GetShaderInfoLog(frag);
-            if (errors != "") ;
+            if (errors != "") throw new Exception(errors);
 
             shader = GL.CreateProgram();
             GL.AttachShader(shader, vert);
@@ -82,8 +82,18 @@ namespace MandelbrotovaMnozina
             GL.UseProgram(shader);
             int reg = GL.GetUniformLocation(shader, "region");
             int res = GL.GetUniformLocation(shader, "resolution");
+            int col = GL.GetUniformLocation(shader, "colors");
             GL.Uniform4(reg, pohled.p1.X, pohled.p1.Y, pohled.p2.X, pohled.p2.Y);
             GL.Uniform1(res, (float)bmp.Width);
+            List<float> colors = new List<float>();
+            for(int i = 0; i < 19; i++)
+            {
+                Color c = Mnozina.Paleta[i];
+                colors.Add(c.R / 255f);
+                colors.Add(c.G / 255f);
+                colors.Add(c.B / 255f);
+            }
+            GL.Uniform3(col, colors.Count, colors.ToArray());
 
             GL.BindVertexArray(vao);           
             

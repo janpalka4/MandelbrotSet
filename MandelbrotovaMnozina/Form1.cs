@@ -31,14 +31,39 @@ namespace MandelbrotovaMnozina
         private void Form1_Load(object sender, EventArgs e)
         {
             PohledovyManazer.PridatPohled(PohledovyManazer.AktualniPohled);
-            plotBox = new PlotBox() { Width = 800, Height = 800, vykreslovaciMod = VykreslovaciMod.GPU };
+            plotBox = new PlotBox() { Width = panel1.Width, Height = panel1.Height, vykreslovaciMod = VykreslovaciMod.GPU };
+            plotBox.VybranNovyPohled += PlotBox_VybranNovyPohled;
             panel1.Controls.Add(plotBox);
-            foreach(Color c in Mnozina.Paleta)
-            {
-                Panel Cprev = new Panel() { Width = flowLayoutPanel3.Width, Height = 10, BackColor = c };
-                flowLayoutPanel3.Controls.Add(Cprev);
-            }
+            panel1.Resize += delegate { plotBox.Width = panel1.Width; plotBox.Height = panel1.Height; Vykresli(); };
+
+            aktualizovatPaletu();
             
+        }
+
+        private void PlotBox_VybranNovyPohled(object sender, Pohled e)
+        {
+            Vykresli();
+        }
+
+        private void aktualizovatPaletu()
+        {
+            int index = 0;
+            flowLayoutPanel3.Controls.Clear();
+            foreach (Color c in Mnozina.Paleta)
+            {
+                Panel Cprev = new Panel() { Width = flowLayoutPanel3.Width, Height = 10, BackColor = c, Name = $"{index}" };
+                Cprev.Click += delegate {
+                    int id = int.Parse(Cprev.Name);
+                    ColorDialog dialog = new ColorDialog();
+                    dialog.Color = Mnozina.Paleta[id];
+                    dialog.ShowDialog();
+                    Color barva = dialog.Color;
+                    Mnozina.Paleta[id] = barva;
+                    aktualizovatPaletu();
+                };
+                flowLayoutPanel3.Controls.Add(Cprev);
+                index++;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -57,11 +82,7 @@ namespace MandelbrotovaMnozina
             StatusTextBox.Text = $"Status: Doba vykreslení {stopwatch.ElapsedMilliseconds / 1000f}s";
             AktualizujUI();
         }
-        private void VypocitejPocetIteraci(float sirka = 800f)
-        {
-            double scale = sirka / (PohledovyManazer.AktualniPohled.p2.X - PohledovyManazer.AktualniPohled.p1.X);
-            Mnozina.MaxIteraci = (int)(Math.Sqrt(2 * Math.Sqrt(Math.Abs(1 - Math.Sqrt(5 * scale)))) * 16.5);
-        }
+        
         public void AktualizujUI()
         {
             txtPohledX.Text = $"X: {PohledovyManazer.AktualniPohled.p1.X}   -   {PohledovyManazer.AktualniPohled.p2.X}";
@@ -90,7 +111,6 @@ namespace MandelbrotovaMnozina
             pohled.p1 = new PointF((float)NumericUpDownX.Value - 1f * R, (float)NumericUpDownY.Value - 1f * R);
             pohled.p2 = new PointF((float)NumericUpDownX.Value + 1f * R, (float)NumericUpDownY.Value + 1f * R);
             PohledovyManazer.PridatPohled(pohled);
-            VypocitejPocetIteraci();
             Vykresli();
         }
 
@@ -122,5 +142,10 @@ namespace MandelbrotovaMnozina
         }
 
         private void editorVideaToolStripMenuItem_Click(object sender, EventArgs e) => new VideoEditor().Show();
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

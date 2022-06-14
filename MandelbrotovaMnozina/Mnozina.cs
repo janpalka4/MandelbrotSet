@@ -41,10 +41,17 @@ namespace MandelbrotovaMnozina
         Color.FromArgb(106,52,3),
         Color.FromArgb(66,30,15),
         Color.FromArgb(25,7,26)};
+        private static void VypocitejPocetIteraci(float sirka = 800f)
+        {
+            double scale = sirka / (PohledovyManazer.AktualniPohled.p2.X - PohledovyManazer.AktualniPohled.p1.X);
+            MaxIteraci = (int)(Math.Sqrt(2 * Math.Sqrt(Math.Abs(1 - Math.Sqrt(5 * scale)))) * 16.5);
+        }
         public static Bitmap VykresliMnozinu(Rectangle region,Pohled pohled)
         {
+            VypocitejPocetIteraci(region.Width);
             Bitmap bmp = new Bitmap(region.Width, region.Height);
-            float velikostPixelu =  Math.Abs(pohled.p1.X - pohled.p2.X)/(float)region.Width;
+            float velikostPixeluX =  Math.Abs(pohled.p1.X - pohled.p2.X)/(float)region.Width;
+            float velikostPixeluY = Math.Abs(pohled.p1.Y - pohled.p2.Y) / (float)region.Height;
 
             for (int x = 0; x < bmp.Width; x++)
             {
@@ -52,8 +59,8 @@ namespace MandelbrotovaMnozina
                 {
                     /*double cx = (x-bmp.Width/2)/(double)bmp.Width*4.0;
                     double cy = (y-bmp.Height/2)/(double)bmp.Height*4.0;*/
-                    double cx = x * velikostPixelu + pohled.p1.X;
-                    double cy = y * velikostPixelu + pohled.p1.Y;
+                    double cx = x * velikostPixeluX + pohled.p1.X;
+                    double cy = y * velikostPixeluY + pohled.p1.Y;
                     double tmpX = cx;
                     double tmpY = cy;
                     double absZn = 0;

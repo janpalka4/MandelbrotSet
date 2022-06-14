@@ -73,7 +73,6 @@ namespace MandelbrotovaMnozina
             Pohled pohled = PohledovyManazer.RectToPohled(vyber,Width,Height);
             PohledovyManazer.PridatPohled(pohled);
             if(VybranNovyPohled != null)VybranNovyPohled.Invoke(this, pohled);
-            Render();
         }
 
         public Bitmap Render()

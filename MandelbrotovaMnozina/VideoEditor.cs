@@ -41,6 +41,7 @@ namespace MandelbrotovaMnozina
         {
             timeLineControl1.PridatKlic(new Keyframe() { value = e, t = timeLineControl1.Position });
             AktualizujListKlicu();
+            plotBox.Render();
         }
 
         private async void VideoEditor_Load(object sender, EventArgs e)

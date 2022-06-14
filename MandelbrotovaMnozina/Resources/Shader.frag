@@ -4,14 +4,16 @@ in vec2 uv;
 
 uniform vec4 region;
 uniform float resolution;
+uniform vec3 colors[19];
+
+out vec4 color;
 
 vec3 lerp(vec3 a, vec3 b, float t){
     return a + t*(b-a);
 }
 
 void main(){
-    vec3 colors[19];
-    colors[0] = vec3(106,52,3)/255.0;
+    /*colors[0] = vec3(106,52,3)/255.0;
     colors[1] = vec3(66,30,15)/255.0;
     colors[2] = vec3(25,7,26)/255.0;
     colors[3] = vec3(9,1,47)/255.0;
@@ -29,7 +31,7 @@ void main(){
     colors[15] = vec3(153,87,0)/255.0;
     colors[16] = vec3(106,52,3)/255.0;
     colors[17] = vec3(66,30,15)/255.0;
-    colors[18] = vec3(25,7,26)/255.0;
+    colors[18] = vec3(25,7,26)/255.0;*/
 
     float R = abs(region.x-region.z)/2.0;
 
@@ -67,5 +69,5 @@ void main(){
     else{
         col = vec3(0.0);
     }
-    gl_FragColor = vec4(col,1.0);
+    color = vec4(col,1.0);
 }
